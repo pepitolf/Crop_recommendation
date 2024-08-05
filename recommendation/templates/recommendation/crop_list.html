@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Crop List{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Crop List</h1>
+    <a href="{% url 'crop_create' %}" class="btn btn-primary mb-2">Add New Crop</a>
+    <ul class="list-group">
+        {% for crop in crops %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ crop.name }}</span>
+                <span>
+                    <form method="post" action="{% url 'crop_delete' crop.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-delete"><i class="fa fa-trash"></i></button>
+                    </form>
+                    <a href="{% url 'crop_update' crop.id %}" class="btn btn-edit">Edit</a>
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

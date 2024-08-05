@@ -1,0 +1,25 @@
+<!-- recommendation/templates/recommendation/knowledge_rule_list.html -->
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Knowledge Rules{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="display-4">Knowledge Rules</h1>
+    <a href="{% url 'knowledge_rule_create' %}" class="btn btn-primary mb-2">Add New Knowledge Rule</a>
+    <ul class="list-group">
+        {% for rule in knowledge_rules %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ rule }}</span>
+                <span>
+                    <form method="post" action="{% url 'knowledge_rule_delete' rule.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-delete"><i class="fa fa-trash"></i></button>
+                    </form>
+                    <a href="{% url 'knowledge_rule_update' rule.id %}" class="btn btn-edit">Edit</a>
+                </span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

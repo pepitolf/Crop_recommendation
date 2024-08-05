@@ -1,0 +1,13 @@
+<!-- recommendation/templates/recommendation/crop_confirm_delete.html -->
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Delete Crop{% endblock %}
+
+{% block content %}
+<h2>Are you sure you want to delete {{ crop.name }}?</h2>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+    <a href="{% url 'crop_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

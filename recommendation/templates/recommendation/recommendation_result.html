@@ -1,0 +1,20 @@
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Recommended Crop{% endblock %}
+
+{% block content %}
+<div class="container mt-4 form-container">
+    <h1>Recommended Crop</h1>
+    <p>The recommended crop for the given conditions is: <strong>{{ recommended_crop }}</strong> with a score of <strong>{{ recommended_score }}</strong></p>
+    <a href="{% url 'crop_recommendation' %}" class="btn btn-primary">Back to Crop Recommendation</a>
+
+    <h2>Top 5 Recommendations</h2>
+    <ul class="list-group mt-3">
+        {% for crop, score in top_recommendations %}
+        <li class="list-group-item">
+            <strong>{{ crop }}</strong> with a score of <strong>{{ score }}</strong>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

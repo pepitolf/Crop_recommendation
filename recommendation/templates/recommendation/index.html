@@ -1,0 +1,15 @@
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Welcome to Crop Recommendation System{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4 welcome-text">Welcome to Crop Recommendation System</h1>
+    <p class="lead">Please log in or create an account to get started.</p>
+    <hr class="my-4">
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg mr-2" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'register' %}" role="button">Create Account</a>
+    </div>
+</div>
+{% endblock %}

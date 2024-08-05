@@ -1,0 +1,21 @@
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Add New Knowledge{% endblock %}
+
+{% block content %}
+<div class="container mt-4 form-container">
+    <h1>Add New Knowledge</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Name:</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

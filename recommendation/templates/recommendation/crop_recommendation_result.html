@@ -1,0 +1,13 @@
+<!-- recommendation/templates/recommendation/crop_recommendation_result.html -->
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Crop Recommendation Result{% endblock %}
+
+{% block content %}
+<h2>Crop Recommendation Result</h2>
+{% if crop %}
+    <p>Based on the provided values, we recommend you to plant: <strong>{{ crop.name }}</strong>.</p>
+{% else %}
+    <p>Sorry, we could not find a suitable crop recommendation based on the provided values.</p>
+{% endif %}
+{% endblock %}

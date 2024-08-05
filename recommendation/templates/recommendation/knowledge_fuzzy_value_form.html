@@ -1,0 +1,126 @@
+{% extends 'recommendation/base.html' %}
+{% load custom_filters %}
+
+{% block title %}Add Knowledge Fuzzy Value{% endblock %}
+
+{% block content %}
+<div class="container center-form mt-4">
+    <h1 class="display-4 text-center mb-4">Add Knowledge Fuzzy Value</h1>
+    <form method="post" class="form-container">
+        {% csrf_token %}
+        {{ form.knowledge_rule }} <!-- Hidden input for knowledge_rule -->
+        <div class="form-group">
+            <label for="id_crop">Crop:</label>
+            {{ form.crop|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            <label for="id_knowledge">Knowledge:</label>
+            {{ form.knowledge|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            <label for="id_fuzzy_set_type">Fuzzy set type:</label>
+            {{ form.fuzzy_set_type|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            <label for="id_x1">x1:</label>
+            {{ form.x1|add_class:"form-control" }}
+        </div>
+        <div class="form-group">
+            <label for="id_x2">x2:</label>
+            {{ form.x2|add_class:"form-control" }}
+        </div>
+        <div class="form-group" id="x3-field" style="display: none;">
+            <label for="id_x3">x3:</label>
+            {{ form.x3|add_class:"form-control" }}
+        </div>
+        <div class="form-group" id="x4-field" style="display: none;">
+            <label for="id_x4">x4:</label>
+            {{ form.x4|add_class:"form-control" }}
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Save</button>
+    </form>
+    <div id="fuzzy-set-visualization" class="mt-4"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fuzzySetTypeField = document.getElementById('id_fuzzy_set_type');
+        const x1Field = document.getElementById('id_x1').parentElement;
+        const x2Field = document.getElementById('id_x2').parentElement;
+        const x3Field = document.getElementById('x3-field');
+        const x4Field = document.getElementById('x4-field');
+        const visualizationContainer = document.getElementById('fuzzy-set-visualization');
+
+        function updateFields() {
+            const fuzzySetType = fuzzySetTypeField.value;
+
+            x1Field.style.display = 'block';
+            x2Field.style.display = 'block';
+            x3Field.style.display = 'none';
+            x4Field.style.display = 'none';
+
+            if (fuzzySetType === 'Triangular') {
+                x3Field.style.display = 'block';
+            } else if (fuzzySetType === 'Trapezoidal') {
+                x3Field.style.display = 'block';
+                x4Field.style.display = 'block';
+            }
+
+            updateVisualization(fuzzySetType);
+        }
+
+        function updateVisualization(fuzzySetType) {
+            let svgContent;
+            switch (fuzzySetType) {
+                case 'Triangular':
+                    svgContent = `
+                        <svg width="300" height="150">
+                            <polyline points="50,100 150,50 250,100" style="fill:none;stroke:black;stroke-width:2" />
+                            <text x="50" y="115" font-size="12" text-anchor="middle">x1</text>
+                            <text x="150" y="35" font-size="12" text-anchor="middle">x2</text>
+                            <text x="250" y="115" font-size="12" text-anchor="middle">x3</text>
+                        </svg>
+                    `;
+                    break;
+                case 'Trapezoidal':
+                    svgContent = `
+                        <svg width="300" height="150">
+                            <polyline points="50,100 100,50 200,50 250,100" style="fill:none;stroke:black;stroke-width:2" />
+                            <text x="50" y="115" font-size="12" text-anchor="middle">x1</text>
+                            <text x="100" y="35" font-size="12" text-anchor="middle">x2</text>
+                            <text x="200" y="35" font-size="12" text-anchor="middle">x3</text>
+                            <text x="250" y="115" font-size="12" text-anchor="middle">x4</text>
+                        </svg>
+                    `;
+                    break;
+                case 'Left Shoulder':
+                    svgContent = `
+                        <svg width="300" height="150">
+                            <polyline points="50,100 150,50 250,50" style="fill:none;stroke:black;stroke-width:2" />
+                            <text x="50" y="115" font-size="12" text-anchor="middle">x1</text>
+                            <text x="150" y="35" font-size="12" text-anchor="middle">x2</text>
+                        </svg>
+                    `;
+                    break;
+                case 'Right Shoulder':
+                    svgContent = `
+                        <svg width="300" height="150">
+                            <polyline points="50,50 150,50 250,100" style="fill:none;stroke:black;stroke-width:2" />
+                            <text x="150" y="65" font-size="12" text-anchor="middle">x1</text>
+                            <text x="250" y="115" font-size="12" text-anchor="middle">x2</text>
+                        </svg>
+                    `;
+                    break;
+                default:
+                    svgContent = '';
+                    break;
+            }
+
+            visualizationContainer.innerHTML = svgContent;
+        }
+
+        fuzzySetTypeField.addEventListener('change', updateFields);
+        updateFields();  // Ensure fields are correct on page load
+    });
+</script>
+{% endblock %}

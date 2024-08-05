@@ -1,0 +1,39 @@
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Admin Dashboard</h1>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <a href="{% url 'crop_list' %}" class="card card-link">
+                <div class="card-body">
+                    <h2 class="card-title">Crops</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 mb-4">
+            <a href="{% url 'knowledge_list' %}" class="card card-link">
+                <div class="card-body">
+                    <h2 class="card-title">Knowledges</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 mb-4">
+            <a href="{% url 'knowledge_rule_list' %}" class="card card-link">
+                <div class="card-body">
+                    <h2 class="card-title">Knowledge Rules</h2>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-6 mb-4">
+            <a href="{% url 'knowledge_fuzzy_value_list' %}" class="card card-link">
+                <div class="card-body">
+                    <h2 class="card-title">Fuzzy Values</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

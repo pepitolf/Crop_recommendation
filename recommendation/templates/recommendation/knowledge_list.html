@@ -1,0 +1,25 @@
+<!-- recommendation/templates/recommendation/knowledge_list.html -->
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Knowledge List{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="display-4">Knowledge List</h1>
+    <a class="btn btn-primary mb-3" href="{% url 'knowledge_create' %}">Add New Knowledge</a>
+    <ul class="list-group">
+        {% for knowledge in knowledges %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ knowledge.name }}
+            <span>
+                <form method="post" action="{% url 'knowledge_delete' knowledge.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-delete"><i class="fa fa-trash"></i></button>
+                </form>
+                <a href="{% url 'knowledge_update' knowledge.id %}" class="btn btn-edit">Edit</a>
+            </span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

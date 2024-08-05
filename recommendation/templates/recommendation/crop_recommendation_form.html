@@ -1,0 +1,19 @@
+<!-- recommendation/templates/recommendation/crop_recommendation_form.html -->
+{% extends 'recommendation/base.html' %}
+
+{% block title %}Crop Recommendation{% endblock %}
+
+{% block content %}
+<h2>Crop Recommendation</h2>
+<form method="post">
+    {% csrf_token %}
+    {% for knowledge in knowledges %}
+    <div class="form-group">
+        <label for="{{ knowledge.name }}">{{ knowledge.name }}:</label>
+        <input type="text" class="form-control" id="{{ knowledge.name }}" name="{{ knowledge.name }}" aria-describedby="{{ knowledge.name }}Help">
+        <small id="{{ knowledge.name }}Help" class="form-text text-muted">Enter the {{ knowledge.name }} value of the soil.</small>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Recommend Crop</button>
+</form>
+{% endblock %}
